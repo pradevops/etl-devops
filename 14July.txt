@@ -1,2 +1,4 @@
 Line 1 -- from my branch -- updated line 1 from my-branch
 Line 2 -- from master
+
+Line 4 - afetr stashing - master
