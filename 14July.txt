@@ -1,1 +1,2 @@
-Line 1 -- from my branch
+Line 1 -- from my branch -- updated line 1 from my-branch
+Line 2 -- from my-branch
