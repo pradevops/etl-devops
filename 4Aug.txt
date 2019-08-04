@@ -1,3 +1,4 @@
 Line 1 from master
 
 This is example of stash
+testing double stash
