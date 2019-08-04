@@ -1,3 +1,2 @@
 This Line 1 from master - new fileile
 Line  from implement branch
-Line 3 from master
