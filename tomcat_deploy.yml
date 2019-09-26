@@ -51,7 +51,7 @@
       when: war_ver.stdout != ""
 
     - name: start Tomcat service
-      shell: nohup ./startup.sh &
+      shell: ./startup.sh
       args:
         chdir: /usr/local/apache-tomcat/bin
 
