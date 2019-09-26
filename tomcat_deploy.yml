@@ -52,6 +52,8 @@
 
     - name: start Tomcat service
       shell: ./startup.sh
+      environment:
+        JAVA_HOME: /usr/local/jdk1.8.0_221
       args:
         chdir: /usr/local/apache-tomcat/bin
 
