@@ -1,0 +1,50 @@
+---
+- hosts: myapp
+  tasks:
+    - name: delete file
+      file:
+        state: absent
+        path: /tmp/maven-metadata.xml
+
+    - name: get the war version from maven-metadata.xml
+      get_url:
+         url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/maven-metadata.xml
+         dest: /tmp/maven-metadata.xml
+
+    - name: grep the value from maven-metadata.xml file
+      shell: 'grep value /tmp/maven-metadata.xml | head -1 | cut -d ">" -f2 | cut -d "<" -f1'
+      register: war_ver
+      ignore_errors: true
+
+    - debug:
+        var: war_ver.stdout_lines
+      when: war_ver.stdout != ""
+
+    - name: shutdown service
+      shell: ./shutdown.sh
+      args:
+        chdir: /usr/local/apache-tomcat/bin
+
+    - name: delete file
+      file:
+        state: absent
+        path: /usr/local/apache-tomcat/webapps/employees.war
+        
+    - name: delete dir
+      file:
+        state: absent
+        path: /usr/local/apache-tomcat/webapps/employees
+
+
+    - name: download file
+      get_url:
+        url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-{{ war_ver.stdout }}.war
+        dest: /usr/local/apache-tomcat/webapps/employees.war
+      when: war_ver.stdout != ""
+
+    - name: start Tomcat service
+      shell: nohup ./startup.sh &
+      args:
+        chdir: /usr/local/apache-tomcat/bin
+
+
