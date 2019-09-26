@@ -23,7 +23,7 @@
       when: war_ver.stdout != ""
 
     - name: shutdown service
-      shell: ./shutdown.sh
+      shell: JAVA_HOME=/usr/local/jdk1.8.0_221 && ./shutdown.sh
       args:
         chdir: /usr/local/apache-tomcat/bin
 
