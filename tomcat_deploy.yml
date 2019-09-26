@@ -1,5 +1,6 @@
 ---
 - hosts: myapp
+  
   tasks:
     - name: delete file
       file:
@@ -23,7 +24,9 @@
       when: war_ver.stdout != ""
 
     - name: shutdown service
-      shell: JAVA_HOME=/usr/local/jdk1.8.0_221 && ./shutdown.sh
+      shell: ./shutdown.sh
+      environment:
+        JAVA_HOME: /usr/local/jdk1.8.0_221
       args:
         chdir: /usr/local/apache-tomcat/bin
 
