@@ -1,5 +1,6 @@
 ---
 - hosts: myapp
+  sudo: yes
   
   tasks:
     - name: delete file
