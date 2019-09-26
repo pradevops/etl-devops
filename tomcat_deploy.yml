@@ -51,7 +51,7 @@
       when: war_ver.stdout != ""
 
     - name: start Tomcat service
-      shell: sleep 15 &&  ./startup.sh
+      shell: nohup ./startup.sh & 
       environment:
         JAVA_HOME: /usr/local/jdk1.8.0_221
       args:
