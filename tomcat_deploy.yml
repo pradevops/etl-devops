@@ -10,6 +10,8 @@
       get_url:
          url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/maven-metadata.xml
          dest: /tmp/maven-metadata.xml
+         url_username: "admin"
+         url_password: "root_123"
 
     - name: grep the value from maven-metadata.xml file
       shell: 'grep value /tmp/maven-metadata.xml | head -1 | cut -d ">" -f2 | cut -d "<" -f1'
@@ -40,6 +42,8 @@
       get_url:
         url: http://{{ NEXUS_PRIVATE_IP }}:8081/repository/maven-snapshots/com/employees/springmvc/employees/2.0.0-SNAPSHOT/employees-{{ war_ver.stdout }}.war
         dest: /usr/local/apache-tomcat/webapps/employees.war
+        url_username: "admin"
+        url_password: "root_123"
       when: war_ver.stdout != ""
 
     - name: start Tomcat service
